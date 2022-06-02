@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./logo";
-import classes from './main-navigation.module.css'
+import classes from "./main-navigation.module.css";
 
 function MainNavigation() {
   return (
@@ -11,11 +11,11 @@ function MainNavigation() {
         </a>
       </Link>
       <nav>
-          <ul>
-              <a>
-                  <Link href='/peers'>Peers</Link>
-              </a>
-          </ul>
+        <ul>
+          <Link href="/peers">
+            <a>Peers</a>
+          </Link>
+        </ul>
       </nav>
     </header>
   );
