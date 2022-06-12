@@ -4,9 +4,9 @@ import "time"
 
 // Peer info
 type Peer struct {
-	ID     int    `orm:"column(id)"`
-	HashID string `orm:"column(hash_id)"`
-	// Address        string `orm:"column(address)"`
+	ID             int       `orm:"column(id)"`
+	HashID         string    `orm:"column(hash_id)"`
+	Address        string    `orm:"column(address)"`
 	OnlineDuration int       `orm:"column(online_duration)"`
 	Claimed        int       `orm:"column(claimed)"`
 	Network        string    `orm:"column(network)"`
