@@ -2,15 +2,17 @@ package model
 
 import (
 	"github.com/beego/beego/v2/client/orm"
-	beego "github.com/beego/beego/v2/server/web"
+	"github.com/spf13/viper"
 )
 
+// DBInit init the db
 func DBInit() {
-	dbhost, _ := beego.AppConfig.String("dbhost")
-	dbport, _ := beego.AppConfig.String("dbport")
-	dbuser, _ := beego.AppConfig.String("dbuser")
-	dbpassword, _ := beego.AppConfig.String("dbpassword")
-	dbname, _ := beego.AppConfig.String("dbname")
+	viper.AutomaticEnv()
+	dbhost := viper.GetString("DBHOST")
+	dbport := viper.GetString("DBPORT")
+	dbuser := viper.GetString("DBUSER")
+	dbpassword := viper.GetString("DBPASSWORD")
+	dbname := viper.GetString("DBNAME")
 	if dbport == "" {
 		dbport = "3306"
 	}
