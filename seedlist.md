@@ -1,4 +1,4 @@
-# main
+# Main 
 
 ```
     // official seed 不需要手动指定
