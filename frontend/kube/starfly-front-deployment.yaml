@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starfly-front-deployment
+  labels:
+    app: starfly-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: starfly-front
+  template:
+    metadata:
+      labels:
+        app: starfly-front
+    spec:
+      containers:
+        - name: starfly-front
+          image: nada9527/starfly-front-development-linux:0.0.3
+          env:
+            - name: MYSQL_HOST
+              value: "starfly.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com"
+            - name: MYSQL_DATABASE
+              value: "star"
+            - name: MYSQL_USERNAME
+              value: "admin"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: starfly-mysql-pass
+                  key: password
