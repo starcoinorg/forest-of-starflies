@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starfly-backend-deployment
+  labels:
+    app: starfly-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: starfly-backend
+  template:
+    metadata:
+      labels:
+        app: starfly-backend
+    spec:
+      containers:
+        - name: starfly-backend
+          image: nada9527/starfly-development-linux:0.0.4
+          env:
+            - name: DBHOST
+              value: "starfly-online.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com"
+            - name: DBPORT
+              value: "3306"
+            - name: DBNAME
+              value: "star"
+            - name: DBUSER
+              value: "admin"
+            - name: DBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: starfly-mysql-pass
+                  key: password
