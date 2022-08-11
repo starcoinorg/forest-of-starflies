@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: starfly-front
-          image: nada9527/starfly-front-development-linux:0.0.3
+          image: nada9527/starfly-front-development-linux:0.0.4
           env:
             - name: MYSQL_HOST
-              value: "starfly.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com"
+              value: "starfly-online.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com"
             - name: MYSQL_DATABASE
               value: "star"
             - name: MYSQL_USERNAME

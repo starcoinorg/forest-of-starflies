@@ -1,6 +1,8 @@
 package model
 
 import (
+	"strings"
+
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/spf13/viper"
 )
@@ -11,7 +13,7 @@ func DBInit() {
 	dbhost := viper.GetString("DBHOST")
 	dbport := viper.GetString("DBPORT")
 	dbuser := viper.GetString("DBUSER")
-	dbpassword := viper.GetString("DBPASSWORD")
+	dbpassword := strings.TrimSpace(viper.GetString("DBPASSWORD"))
 	dbname := viper.GetString("DBNAME")
 	if dbport == "" {
 		dbport = "3306"
