@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"peers_crawler/model"
+	"regexp"
 	"strings"
 	"time"
 
@@ -39,7 +40,8 @@ var SeedURL = map[string][]string{
 }
 
 type resultUnit struct {
-	PeerID string `json:"peer_id"`
+	PeerID        string `json:"peer_id"`
+	VersionString string `json:"version_string"`
 }
 
 // NodePeersResult result from node peers
@@ -132,7 +134,11 @@ func getPeersFromURL(url string, net string) ([]model.Peer, error) {
 
 	var modelPeers []model.Peer
 	for _, peerInfo := range nodePeersRes.Result {
-		modelPeers = append(modelPeers, model.Peer{HashID: peerInfo.PeerID, Network: net, CreatedAt: time.Now()})
+
+		r, _ := regexp.Compile("0x([A-Za-z0-9]+)")
+		walletaddr := r.FindString(peerInfo.VersionString)
+
+		modelPeers = append(modelPeers, model.Peer{HashID: peerInfo.PeerID, Network: net, Address: walletaddr, CreatedAt: time.Now()})
 	}
 
 	return modelPeers, nil
@@ -143,5 +149,6 @@ func updatePeers(peers map[string]model.Peer) {
 
 	for _, p := range peers {
 		o.InsertOrUpdate(&p, `online_duration=online_duration+300`)
+		o.Update(&p, "address")
 	}
 }
