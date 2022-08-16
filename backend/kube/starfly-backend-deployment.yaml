@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: starfly-backend
-          image: nada9527/starfly-development-linux:0.0.5
+          image: nada9527/starfly-development-linux:0.0.6
           env:
             - name: DBHOST
               value: "starfly-online.c0bz9kehdvnb.ap-northeast-1.rds.amazonaws.com"
