@@ -8,7 +8,6 @@ import (
 	"peers_crawler/model"
 	"regexp"
 	"strings"
-	"time"
 
 	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/core/logs"
@@ -138,7 +137,7 @@ func getPeersFromURL(url string, net string) ([]model.Peer, error) {
 		r, _ := regexp.Compile("0x([A-Za-z0-9]+)")
 		walletaddr := r.FindString(peerInfo.VersionString)
 
-		modelPeers = append(modelPeers, model.Peer{HashID: peerInfo.PeerID, Network: net, Address: walletaddr, CreatedAt: time.Now()})
+		modelPeers = append(modelPeers, model.Peer{HashID: peerInfo.PeerID, Network: net, Address: walletaddr})
 	}
 
 	return modelPeers, nil
@@ -148,7 +147,10 @@ func updatePeers(peers map[string]model.Peer) {
 	o := orm.NewOrm()
 
 	for _, p := range peers {
-		o.InsertOrUpdate(&p, `online_duration=online_duration+300`)
-		o.Update(&p, "address")
+		r := o.Raw("insert into peer(hash_id,address,network) values(?,?,?)  on duplicate key update online_duration=online_duration+300,address=values(address)", p.HashID, p.Address, p.Network)
+		_, err := r.Exec()
+		if err != nil {
+			logs.Error(fmt.Sprintf("updatePeers raw sql, got error: %s", err.Error()))
+		}
 	}
 }

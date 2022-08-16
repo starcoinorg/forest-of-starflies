@@ -10,8 +10,8 @@ type Peer struct {
 	OnlineDuration int       `orm:"column(online_duration)"`
 	Claimed        int       `orm:"column(claimed)"`
 	Network        string    `orm:"column(network)"`
-	CreatedAt      time.Time `json:"create_at"` // todo beego orm has an issue about auto_now_add
-	UpdatedAt      time.Time `json:"update_at" orm:"auto_now;type(datetime)"`
+	CreatedAt      time.Time `orm:"column(created_at)"`
+	UpdatedAt      time.Time `orm:"column(updated_at)"`
 }
 
 // TableUnique muilti key unique
