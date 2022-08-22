@@ -32,6 +32,10 @@ const ToBeClaimedTable = (props) => {
       name: "OnlineDuration",
       selector: (row) => row.online_duration,
     },
+    {
+      name: "CreateTime",
+      selector: (row) => row.created_at,
+    },
   ];
 
   return (
