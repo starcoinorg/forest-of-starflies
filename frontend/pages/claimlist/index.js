@@ -36,6 +36,10 @@ const ToBeClaimedTable = (props) => {
       name: "CreateTime",
       selector: (row) => row.created_at,
     },
+    {
+      name: "IsClaimed",
+      selector: (row) => row.claimed,
+    },
   ];
 
   return (
