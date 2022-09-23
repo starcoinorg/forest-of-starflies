@@ -29,7 +29,7 @@ const ToBeClaimedTable = (props) => {
       selector: (row) => row.network,
     },
     {
-      name: "OnlineDuration",
+      name: "OnlineDuration(s)",
       selector: (row) => row.online_duration,
     },
     {
